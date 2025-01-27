@@ -16,7 +16,7 @@ if [ "$PWD" = "${BACKUP_DIR_MAIN}" ]; then
     echo "OK"
 else
     cd $BACKUP_DIR_MAIN && 
-    mkdir $BACKUP_DIR &&
+    mkdir -p $BACKUP_DIR &&
     chmod 777 -R $BACKUP_DIR 
     echo "Navigate to ${BACKUP_DIR_MAIN}"
 fi
