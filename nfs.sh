@@ -12,12 +12,12 @@ LOGFILE=/tmp/$SCRIPT_NAME-$TIMESTAMP.log
 
 # changing to the main directory
 
-if [ "$PWD" = "${BACKUP_DIR}" ]; then
+if [ "$PWD" = "${BACKUP_DIR_MAIN}" ]; then
     echo "OK"
 else
     cd $BACKUP_DIR_MAIN && 
     mkdir $BACKUP_DIR &&
-    chmod 777 -R BACKUP_DIR 
+    chmod 777 -R $BACKUP_DIR 
     echo "Navigate to ${BACKUP_DIR_MAIN}"
 fi
 
