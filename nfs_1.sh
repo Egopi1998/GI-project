@@ -27,6 +27,9 @@ IP_LIST=(
   10.1.0.4
   10.1.0.5
 )
+for ip in "${IP_LIST[@]}"; do
+  echo "Processing IP: $ip"
+done
 # --------------------------------------
 # Build EXPORT_ENTRIES
 # --------------------------------------
