@@ -7,7 +7,7 @@ set -euo pipefail
 # USER="root"
 # PASSWORD="bMccW2NgBLBw"
 # HOST="10.188.47.238"
-# BACKUP_DIR="/data/insights/3.6.0-backup/3.6.0-ga"
+BACKUP_DIR="/data/insights/3.6.0-backup/3.6.0-ga"
 # CLUSTER_LOGIN="oc login -u kubeadmin -p Q8a7j-AdEhS-nXd3b-896Wn --server=https://api.komal-bnr.cp.fyre.ibm.com:6443"
 # EXPORTS_FILE="/etc/exports"
 
