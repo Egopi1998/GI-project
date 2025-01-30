@@ -32,55 +32,55 @@ done
 
 EXPORTS_CONTENT=$(printf "%s\n" "${EXPORT_ENTRIES[@]}")
 
-# --------------------------------------
-# Remote NFS Configuration
-# --------------------------------------
-sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no "$USER@$HOST" /bin/bash << EOF
-set -euo pipefail
+# # --------------------------------------
+# # Remote NFS Configuration
+# # --------------------------------------
+# sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no "$USER@$HOST" /bin/bash << EOF
+# set -euo pipefail
 
-# Create backup directory (with error handling)
-BACKUP_DIR="$BACKUP_DIR"
-if [ ! -d "\$BACKUP_DIR" ]; then
-    mkdir -p "\$BACKUP_DIR" || { echo "Failed to create \$BACKUP_DIR"; exit 1; }
-    chmod 777 "\$BACKUP_DIR"
-    echo "Created and set permissions for \$BACKUP_DIR"
-else
-    chmod 777 "\$BACKUP_DIR"  # Ensure permissions even if dir exists
-    echo "Confirmed permissions for \$BACKUP_DIR"
-fi
+# # Create backup directory (with error handling)
+# BACKUP_DIR="$BACKUP_DIR"
+# if [ ! -d "\$BACKUP_DIR" ]; then
+#     mkdir -p "\$BACKUP_DIR" || { echo "Failed to create \$BACKUP_DIR"; exit 1; }
+#     chmod 777 "\$BACKUP_DIR"
+#     echo "Created and set permissions for \$BACKUP_DIR"
+# else
+#     chmod 777 "\$BACKUP_DIR"  # Ensure permissions even if dir exists
+#     echo "Confirmed permissions for \$BACKUP_DIR"
+# fi
 
-# Backup /etc/exports before changes
-cp -p "$EXPORTS_FILE" "$EXPORTS_FILE.bak"
+# # Backup /etc/exports before changes
+# cp -p "$EXPORTS_FILE" "$EXPORTS_FILE.bak"
 
-# Comment out existing entries
-$(for entry in "${EXPORT_ENTRIES[@]}"; do
-  # Escape regex-sensitive characters
-  escaped_entry=\$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$entry")
-  echo "sed -i 's|^\${escaped_entry}|#&|' $EXPORTS_FILE"
-done)
+# # Comment out existing entries
+# $(for entry in "${EXPORT_ENTRIES[@]}"; do
+#   # Escape regex-sensitive characters
+#   escaped_entry=\$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<< "$entry")
+#   echo "sed -i 's|^\${escaped_entry}|#&|' $EXPORTS_FILE"
+# done)
 
-# Add new entries
-cat <<EOL >> $EXPORTS_FILE
-$EXPORTS_CONTENT
-EOL
+# # Add new entries
+# cat <<EOL >> $EXPORTS_FILE
+# $EXPORTS_CONTENT
+# EOL
 
-# Apply NFS settings
-exportfs -a
+# # Apply NFS settings
+# exportfs -a
 
-# Enable/start NFS server
-if ! systemctl is-enabled nfs-server &>/dev/null; then
-    systemctl enable nfs-server
-fi
+# # Enable/start NFS server
+# if ! systemctl is-enabled nfs-server &>/dev/null; then
+#     systemctl enable nfs-server
+# fi
 
-if ! systemctl is-active nfs-server &>/dev/null; then
-    systemctl start nfs-server
-fi
+# if ! systemctl is-active nfs-server &>/dev/null; then
+#     systemctl start nfs-server
+# fi
 
-# Reboot only if exports changed
-if ! diff -q "$EXPORTS_FILE" "$EXPORTS_FILE.bak" &>/dev/null; then
-    echo "Rebooting to apply changes..."
-    shutdown -r now
-else
-    echo "No changes detected; skipping reboot"
-fi
-EOF
+# # Reboot only if exports changed
+# if ! diff -q "$EXPORTS_FILE" "$EXPORTS_FILE.bak" &>/dev/null; then
+#     echo "Rebooting to apply changes..."
+#     shutdown -r now
+# else
+#     echo "No changes detected; skipping reboot"
+# fi
+# EOF
