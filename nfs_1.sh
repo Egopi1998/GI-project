@@ -4,23 +4,27 @@ set -euo pipefail
 # --------------------------------------
 # Configuration
 # --------------------------------------
-USER="root"
-PASSWORD="bMccW2NgBLBw"
-HOST="10.188.47.238"
-BACKUP_DIR="/data/insights/3.6.0-backup/3.6.0-ga"
-CLUSTER_LOGIN="oc login -u kubeadmin -p Q8a7j-AdEhS-nXd3b-896Wn --server=https://api.komal-bnr.cp.fyre.ibm.com:6443"
-EXPORTS_FILE="/etc/exports"
+# USER="root"
+# PASSWORD="bMccW2NgBLBw"
+# HOST="10.188.47.238"
+# BACKUP_DIR="/data/insights/3.6.0-backup/3.6.0-ga"
+# CLUSTER_LOGIN="oc login -u kubeadmin -p Q8a7j-AdEhS-nXd3b-896Wn --server=https://api.komal-bnr.cp.fyre.ibm.com:6443"
+# EXPORTS_FILE="/etc/exports"
 
-# --------------------------------------
-# Cluster Login
-# --------------------------------------
-eval "$CLUSTER_LOGIN" || { echo "Cluster login failed"; exit 1; }
+# # --------------------------------------
+# # Cluster Login
+# # --------------------------------------
+# eval "$CLUSTER_LOGIN" || { echo "Cluster login failed"; exit 1; }
 
-# --------------------------------------
-# Get Node IPs
-# --------------------------------------
-IP_LIST=$(oc get node -o wide | awk 'NR > 1 {print $6}')
-
+# # --------------------------------------
+# # Get Node IPs
+# # --------------------------------------
+# IP_LIST=$(oc get node -o wide | awk 'NR > 1 {print $6}')
+IP_LIST=(10.1.0.1
+10.1.0.1
+10.1.0.1
+10.1.0.1
+10.1.0.1)
 # --------------------------------------
 # Build EXPORT_ENTRIES
 # --------------------------------------
