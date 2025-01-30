@@ -40,7 +40,7 @@ for ip in $IP_LIST; do
 done
 
 EXPORTS_CONTENT=$(printf "%s\n" "${EXPORT_ENTRIES[@]}")
-echo "EXPORTS_CONTENT: $EXPORTS_CONTENT"
+printf "Export Entries:\n%s\n" "${EXPORT_ENTRIES[@]}"
 
 # # --------------------------------------
 # # Remote NFS Configuration
