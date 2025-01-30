@@ -34,7 +34,7 @@ done
 # Build EXPORT_ENTRIES
 # --------------------------------------
 EXPORT_ENTRIES=()
-for ip in $IP_LIST; do
+for ip in "${IP_LIST[@]}"; do
   # Format: "/backup/dir IP(options)"
   EXPORT_ENTRIES+=("${BACKUP_DIR} ${ip}(rw,sync,no_subtree_check,no_root_squash)")
 done
